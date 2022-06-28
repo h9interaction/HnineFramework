@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameObjectExtension : MonoBehaviour
+public class HnineObject : MonoBehaviour
 {
     public GameObject obj;
     Image _img;
@@ -96,13 +96,13 @@ public class GameObjectExtension : MonoBehaviour
     }
 }
 
-public static class HnineExtensions
+public static class GameObjectExtension
 {
-    public static GameObjectExtension hnine(this GameObject obj)
+    public static HnineObject hnine(this GameObject obj)
     {
-        var hnineObj = obj.GetComponent<GameObjectExtension>();
+        var hnineObj = obj.GetComponent<HnineObject>();
         if (hnineObj == null)
-            hnineObj = obj.AddComponent<GameObjectExtension>();
+            hnineObj = obj.AddComponent<HnineObject>();
         hnineObj.obj = obj;
         return hnineObj;
     }
