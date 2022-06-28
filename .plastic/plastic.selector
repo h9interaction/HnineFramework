@@ -1,0 +1,4 @@
+repository "HnineFramwork@VIInteraction@cloud"
+  path "/"
+    br "/main"
+    co "/main"
