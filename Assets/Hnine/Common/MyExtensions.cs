@@ -44,4 +44,11 @@ public static class MyExtensions
             mask = obj.AddComponent<Mask>();
         return mask;
     }
+    public static RawImage RImg(this GameObject obj)
+    {
+        var rimg = obj.GetComponent<RawImage>();
+        if (rimg == null)
+            rimg = obj.AddComponent<RawImage>();
+        return rimg;
+    }
 }
