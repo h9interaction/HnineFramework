@@ -67,8 +67,8 @@ public class HorizontalScrollSnapHandler : MonoBehaviour, IPointerDownHandler, I
         movePos = startPos - scrollRect.content.anchoredPosition;
         var percent = ((MyScrollDirection == Direction.hor) ? movePos.x : -movePos.y) % size;
         int idx = 0;
-        if (percent > 0) idx = (percent > size * 0.5f) ? 1 : 0;
-        else idx = (percent < -size * 0.5f) ? -1 : 0;
+        if (percent > 0) idx = (percent > size * 0.1f) ? 1 : 0;
+        else idx = (percent < -size * 0.1f) ? -1 : 0;
         var movedIdx = (int)(((MyScrollDirection == Direction.hor) ? movePos.x : -movePos.y) / size) + idx;
         index += movedIdx;
         index = Mathf.Clamp(index, 0, list_Items.Count - 1);
@@ -77,8 +77,8 @@ public class HorizontalScrollSnapHandler : MonoBehaviour, IPointerDownHandler, I
 
     public void snap()
     {
-        //해당 아이템의 X위치를 가져와서 스냅처리, 위치값이 음수이기때문에 양수로 바꿔 움직임.
-        Debug.Log(-list_Items[index].Rt.anchoredPosition.y + " - " + (scrollRect.content.rect.height - (Screen.height * scaleFactor())));
+        // 해당 아이템의 X위치를 가져와서 스냅처리, 위치값이 음수이기때문에 양수로 바꿔 움직임.
+        // Debug.Log(-list_Items[index].Rt.anchoredPosition.y + " - " + (scrollRect.content.rect.height - (Screen.height * scaleFactor())));
         var _posx = list_Items[index].Rt.anchoredPosition.x;
         var _posy = -list_Items[index].Rt.anchoredPosition.y;
         float pos = ((MyScrollDirection == Direction.hor) ? _posx : _posy);
