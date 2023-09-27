@@ -23,7 +23,9 @@ namespace com.hnine.framework
         AppOpen,
         AppClose,
         FromDownToUp,
-        FromUpToDown
+        FromUpToDown,
+        PopupOpen,
+        PopupClose
     }
 
     public class PageChanger : MonoBehaviour
@@ -65,7 +67,7 @@ namespace com.hnine.framework
         AnimationCurve tweenEase;
         float upToDownShowPagePosY;
 
-        public void ScreenChange(RectTransform _hidePage, RectTransform _showPage, PageSwitchType _switchType, float _delayTime, float _tweenTime, AnimationCurve _animCurve, UnityEngine.Events.UnityAction _onComplete,float showPagePosY = 0f)
+        public void ScreenChange(RectTransform _hidePage, RectTransform _showPage, PageSwitchType _switchType, float _delayTime, float _tweenTime, AnimationCurve _animCurve, UnityEngine.Events.UnityAction _onComplete = null, float showPagePosY = 0f)
         {
             if (!isTween)
             {
@@ -162,6 +164,19 @@ namespace com.hnine.framework
                         showPageCG.alpha = 0;
                         showPage.localPosition = new Vector3(0, 0, 0);
                         break;
+                    case PageSwitchType.PopupOpen:
+                        RTDim.SetAsLastSibling();
+                        showPage.SetAsLastSibling();
+                        showPageCG.alpha = 0;
+                        showPage.localPosition = Vector3.zero;
+                        showPage.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+                        break;
+                    case PageSwitchType.PopupClose:
+                        // showPage.SetAsLastSibling();
+                        // showPageCG.alpha = 0;
+                        showPage.localPosition = Vector3.zero;
+                        // showPage.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                        break;
                 }
 
                 isComplete = false;
@@ -233,12 +248,28 @@ namespace com.hnine.framework
                             // CGDim.alpha = tweenEase.Evaluate(tweenTimer / tweenTime) * 0.5f;
                             if (showPage != null) showPage.localPosition = Vector3.Lerp(new Vector3(0, upToDownShowPagePosY, 0), Vector3.zero, tweenEase.Evaluate(tweenTimer / tweenTime));
                             break;
+                        case PageSwitchType.PopupOpen:
+                            if (showPage != null) showPage.localScale = Vector3.Lerp(new Vector3(1.1f, 1.1f, 1.1f), Vector3.one, tweenEase.Evaluate(tweenTimer / tweenTime));
+                            if (showPage != null) showPageCG.alpha = tweenEase.Evaluate(tweenTimer / tweenTime);
+                            break;
+                        case PageSwitchType.PopupClose:
+                            if (hidePage != null) hidePage.localScale = Vector3.Lerp(Vector3.one, new Vector3(1.1f, 1.1f, 1.1f), tweenEase.Evaluate(tweenTimer / tweenTime));
+                            if (hidePageCG != null) hidePageCG.alpha = 1 - tweenEase.Evaluate(tweenTimer / tweenTime);
+                            if (showPage != null) showPageCG.alpha = tweenEase.Evaluate(tweenTimer / tweenTime);
+                            break;
+
                     }
                     tweenTimer += Time.deltaTime;
                 }
                 else if (tweenTimer > tweenTime && !isComplete)
                 {
-                    if (onComplete != null) onComplete.Invoke();
+                    if (onComplete != null)
+                    {
+                        onComplete.Invoke();
+                        Debug.Log("tweenComplete");
+                        CGDim.alpha = 0;
+                        CGDim.blocksRaycasts = false;
+                    }
                     isTween = false;
                     isComplete = true;
                 }
