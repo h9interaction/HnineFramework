@@ -2,6 +2,7 @@
 GameObject에 다양 한 컴포넌트를 붙이거나 접근하는 용도로 사용
 */
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,13 @@ public static class MyExtensions
         var txt = obj.GetComponent<Text>();
         if (txt == null)
             txt = obj.AddComponent<Text>();
+        return txt;
+    }
+    public static TMP_Text TmpTXT(this GameObject obj)
+    {
+        var txt = obj.GetComponent<TMP_Text>();
+        if (txt == null)
+            txt = obj.AddComponent<TMP_Text>();
         return txt;
     }
     public static Button BTN(this GameObject obj)
