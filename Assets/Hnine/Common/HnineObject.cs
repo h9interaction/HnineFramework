@@ -21,6 +21,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.ProceduralImage;
 using UnityEngine.Video;
+using TMPro;
 
 public class HnineObject : MonoBehaviour
 {
@@ -77,6 +78,18 @@ public class HnineObject : MonoBehaviour
                 _txt = obj.TXT();
             }
             return _txt;
+        }
+    }
+    TMP_Text _tmpTxt;
+    public TMP_Text TmpTxt
+    {
+        get
+        {
+            if (_tmpTxt == null)
+            {
+                _tmpTxt = obj.TmpTXT();
+            }
+            return _tmpTxt;
         }
     }
     Button _btn;
