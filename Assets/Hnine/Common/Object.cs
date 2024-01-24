@@ -38,7 +38,9 @@ public class Object : MonoBehaviour
         {
             if (_rimg == null)
             {
-                _rimg = obj.RImg();
+                _rimg = obj.GetComponent<RawImage>();
+                if (_rimg == null)
+                    _rimg = obj.AddComponent<RawImage>();
             }
             return _rimg;
         }
@@ -51,7 +53,9 @@ public class Object : MonoBehaviour
         {
             if (_img == null)
             {
-                _img = obj.IMG();
+                _img = obj.GetComponent<Image>();
+                if (_img == null)
+                    _img = obj.AddComponent<Image>();
             }
             return _img;
         }
@@ -63,23 +67,13 @@ public class Object : MonoBehaviour
         {
             if (_cg == null)
             {
-                _cg = obj.CG();
+                _cg = obj.GetComponent<CanvasGroup>();
+                if (_cg == null)
+                    _cg = obj.AddComponent<CanvasGroup>();
             }
             return _cg;
         }
     }
-    // Text _txt;
-    // public Text Txt
-    // {
-    //     get
-    //     {
-    //         if (_txt == null)
-    //         {
-    //             _txt = obj.TXT();
-    //         }
-    //         return _txt;
-    //     }
-    // }
     TMP_Text _tmpTxt;
     public TMP_Text Txt
     {
@@ -87,7 +81,9 @@ public class Object : MonoBehaviour
         {
             if (_tmpTxt == null)
             {
-                _tmpTxt = obj.TmpTXT();
+                _tmpTxt = obj.GetComponent<TMP_Text>();
+                if (_tmpTxt == null)
+                    _tmpTxt = obj.AddComponent<TMP_Text>();
             }
             return _tmpTxt;
         }
@@ -99,7 +95,9 @@ public class Object : MonoBehaviour
         {
             if (_btn == null)
             {
-                _btn = obj.BTN();
+                _btn = obj.GetComponent<Button>();
+                if (_btn == null)
+                    _btn = obj.AddComponent<Button>();
             }
             return _btn;
         }
@@ -111,7 +109,7 @@ public class Object : MonoBehaviour
         {
             if (_rt == null)
             {
-                _rt = obj.RT();
+                _rt = obj.GetComponent<RectTransform>();
             }
             return _rt;
         }
@@ -123,7 +121,9 @@ public class Object : MonoBehaviour
         {
             if (_mask == null)
             {
-                _mask = obj.Mask();
+                _mask = obj.GetComponent<Mask>();
+                if (_mask == null)
+                    _mask = obj.AddComponent<Mask>();
             }
             return _mask;
         }
